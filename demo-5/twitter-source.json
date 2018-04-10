@@ -1,0 +1,28 @@
+Sample data:
+bin/kafka-topics.sh --zookeeper zookeeper:2181 --create --topic myTwitterTopic --partitions 50 --replication-factor 1
+curl -X POST -H "Content-Type: application/json" --data '{"name": "my-twitter-source", "config": {"connector.class":"com.eneco.trading.kafka.connect.twitter.TwitterSourceConnector", "tasks.max":"1", "topic":"myTwitterTopic", "file": "/tmp/my-topic-source.txt", "twitter.consumerkey": "XXX", "twitter.consumersecret": "XXX", "twitter.token": "XXX", "twitter.secret": "XXX", "stream.type": "sample" }}' http://localhost:8083/connectors
+
+AVFC filter:
+bin/kafka-topics.sh --zookeeper zookeeper:2181 --create --topic myTwitterTopic2 --partitions 50 --replication-factor 1
+curl -X POST -H "Content-Type: application/json" --data '{"name": "my-twitter-source2", "config": {"connector.class":"com.eneco.trading.kafka.connect.twitter.TwitterSourceConnector", "tasks.max":"1", "topic":"myTwitterTopic2", "file": "/tmp/my-topic-source.txt", "twitter.consumerkey": "XXX", "twitter.consumersecret": "XXX", "twitter.token": "XXX", "twitter.secret": "XXX", "stream.type": "filter", "track.terms": "AVFC,UTV,Aston Villa" }}' http://localhost:8083/connectors
+
+// name=twitter-source
+// connector.class=com.eneco.trading.kafka.connect.twitter.TwitterSourceConnector
+// tasks.max=1
+// topic=twitter
+// twitter.consumerkey=(secret)
+// twitter.consumersecret=(secret)
+// twitter.token=(secret)
+// twitter.secret=(secret)
+// track.terms=test
+
+# language=en,ru,de
+# stream.type=sample
+# stream.type=filter
+# track.terms=news,music,hadoop,clojure,scala,fp,golang,python,fsharp,cpp,java
+# San Francisco OR New York City
+#track.locations=-122.75,36.8,-121.75,37.8,-74,40,-73,41
+# bbcbreaking,bbcnews,justinbieber
+# track.follow=5402612,612473,27260086
+
+Parameters: https://developer.twitter.com/en/docs/tweets/filter-realtime/api-reference/post-statuses-filter.html

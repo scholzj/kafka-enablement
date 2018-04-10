@@ -1,0 +1,14 @@
+{
+  "name": "twitter-feed",
+  "config": {
+    "connector.class": "com.eneco.trading.kafka.connect.twitter.TwitterSourceConnector",
+    "tasks.max": "1",
+    "topic": "twitter-feed",
+    "twitter.consumerkey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "twitter.consumersecret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "twitter.token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "twitter.secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "stream.type": "filter",
+    "track.terms": "AVFC,UTV,VTID,Aston Villa,HULAVL"
+  }
+}

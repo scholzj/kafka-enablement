@@ -1,0 +1,39 @@
+{
+  "id": 979720035601207296,
+  "created_at": "2018-03-30T14:00:33.000+0000",
+  "user": {
+    "id": 284981454,
+    "name": "I \uD83D\uDC99\uD83D\uDC9C 10 & 26!!",
+    "screen_name": "GemmaRooney10",
+    "location": "Huntingdon Cambridgeshire",
+    "verified": false,
+    "friends_count": 4983,
+    "followers_count": 1156,
+    "statuses_count": 100925
+  },
+  "text": "RT @AVFC_News: The skipper has been linked with a return to Chelsea #AVFC https://t.co/Oyx0vAvkCs",
+  "lang": "en",
+  "is_retweet": true,
+  "entities": {
+    "hashtags": [
+      {
+        "text": "AVFC"
+      }
+    ],
+    "media": [],
+    "urls": [
+      {
+        "display_url": "birminghammail.co.uk/sport/football…",
+        "expanded_url": "https://www.birminghammail.co.uk/sport/football/transfer-news/villa-terry-future-bruce-chelsea-14475405",
+        "url": "https://t.co/Oyx0vAvkCs"
+      }
+    ],
+    "user_mentions": [
+      {
+        "id": 18461503,
+        "name": "Aston Villa News",
+        "screen_name": "AVFC_News"
+      }
+    ]
+  }
+}
