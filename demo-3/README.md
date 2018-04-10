@@ -1,6 +1,6 @@
 # Replicas
 
-Thsi demo should be executed from the `environment/kafka-1.1.0` directory.
+This demo should be executed from the `environment/kafka-1.1.0` directory.
 
 ## Configure JAAS for Zookeeper authentication
 

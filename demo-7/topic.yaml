@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: created-as-configmap
+  labels:
+    strimzi.io/kind: topic
+    strimzi.io/cluster: my-cluster
+data:
+  name: created-as-configmap
+  partitions: "1"
+  replicas: "1"
+  config: '{ "cleanup.policy":"compact", "retention.ms":"4600000" }'
+
