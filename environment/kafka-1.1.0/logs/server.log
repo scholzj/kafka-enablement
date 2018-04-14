@@ -1,2 +1,0 @@
-[2018-04-10 22:19:56,764] INFO Purge task started. (org.apache.zookeeper.server.DatadirCleanupManager)
-[2018-04-10 22:19:56,766] INFO Purge task completed. (org.apache.zookeeper.server.DatadirCleanupManager)

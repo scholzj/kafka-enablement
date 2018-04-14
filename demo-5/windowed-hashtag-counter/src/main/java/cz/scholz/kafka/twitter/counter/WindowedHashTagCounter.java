@@ -36,7 +36,7 @@ public class WindowedHashTagCounter {
 
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "windowed-hashtag-counter");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "172.30.170.63:9092");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -44,16 +44,19 @@ public class WindowedHashTagCounter {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, JsonNode> tweets = builder.stream("twitter-feed", Consumed.with(Serdes.String(), jsonSerde));
 
-        KStream<String, String> hashTags = tweets.flatMapValues(WindowedHashTagCounter::getHashTags).mapValues(value -> value.toLowerCase(Locale.getDefault()));
+        KStream<String, String> hashTags = tweets
+                .flatMapValues(WindowedHashTagCounter::getHashTags)
+                .mapValues(value -> value.toLowerCase(Locale.getDefault()));
         KTable<Windowed<String>, Long> counts = hashTags.groupBy((key, value) -> value)
                 .windowedBy(TimeWindows.of(TimeUnit.SECONDS.toMillis(60)))
                 .count(Materialized.<String, Long, WindowStore<Bytes, byte[]>>as("twitter-windowed-hashtag-counter-store"));
 
         WindowedSerializer<String> windowedSerializer = new WindowedSerializer<>(Serdes.String().serializer());
-        WindowedDeserializer<String> windowedDeserializer = new WindowedDeserializer<>(Serdes.String().deserializer(), 60);
+        WindowedDeserializer<String> windowedDeserializer = new WindowedDeserializer<>(Serdes.String().deserializer(), TimeUnit.SECONDS.toMillis(60));
         Serde<Windowed<String>> windowedSerde = Serdes.serdeFrom(windowedSerializer, windowedDeserializer);
 
         counts.toStream()
+                .filter((stringWindowed, aLong) -> (aLong > 1))
                 .to("twitter-windowed-hashtag-counter", Produced.with(windowedSerde, Serdes.Long()));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), props);

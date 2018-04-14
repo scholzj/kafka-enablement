@@ -15,7 +15,7 @@ public class TwitterConsumer {
         System.setProperty("org.slf4j.simpleLogger.showThreadName", "false");
 
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.30.170.63:9092");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "TwitterConsumer");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
@@ -25,7 +25,7 @@ public class TwitterConsumer {
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
-        consumer.subscribe(Collections.singletonList("twitter-feed"));
+        consumer.subscribe(Collections.singletonList("twitter-hashtag-counter"));
 
         while (true)
         {

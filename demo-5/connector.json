@@ -9,6 +9,6 @@
     "twitter.token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "twitter.secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "stream.type": "filter",
-    "track.terms": "AVFC,UTV,VTID,Aston Villa,HULAVL"
+    "track.terms": "ActiveMQ,Qpid,Kafka,messaging,AMQP,MQTT"
   }
 }

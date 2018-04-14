@@ -29,29 +29,19 @@ public class WindowedTweetCounter {
 
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "twitter-windowed-counter");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "172.30.53.23:9092");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> tweets = builder.stream("twitter-feed");
 
-        /*KStream<Windowed<String>, Long> counts = tweets.selectKey(new KeyValueMapper<String, String, String>() {
-                    @Override
-                    public String apply(String key, String value) {
-                        return "count";
-                    }
-                })
-                .groupByKey()
+        KTable<Windowed<String>, Long> counts = tweets.groupBy((key, value) -> "")
                 .windowedBy(TimeWindows.of(TimeUnit.SECONDS.toMillis(60)))
-                .count(Materialized.<String, Long, WindowStore<Bytes, byte[]>>as("windowed-tweet-counts-store"));*/
-
-        KTable<Windowed<String>, Long> counts = tweets.groupByKey()
-                .windowedBy(TimeWindows.of(TimeUnit.SECONDS.toMillis(60)))
-                .count(Materialized.<String, Long, WindowStore<Bytes, byte[]>>as("twitter-windowed-counter-store"));
+                .count(Materialized.<String, Long, WindowStore<Bytes, byte[]>>as("twitter-windowed-counter-store").withCachingEnabled());
 
         WindowedSerializer<String> windowedSerializer = new WindowedSerializer<>(Serdes.String().serializer());
-        WindowedDeserializer<String> windowedDeserializer = new WindowedDeserializer<>(Serdes.String().deserializer(), 60);
+        WindowedDeserializer<String> windowedDeserializer = new WindowedDeserializer<>(Serdes.String().deserializer(), TimeUnit.SECONDS.toMillis(60));
         Serde<Windowed<String>> windowedSerde = Serdes.serdeFrom(windowedSerializer, windowedDeserializer);
 
         counts.toStream()
