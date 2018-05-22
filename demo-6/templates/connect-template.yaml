@@ -61,18 +61,6 @@ parameters:
   displayName: Status replication factor
   name: KAFKA_CONNECT_STATUS_STORAGE_REPLICATION_FACTOR
   value: "3"
-- description: Image repository name
-  displayName: Repository Name
-  name: IMAGE_REPO_NAME
-  value: strimzi
-- description: Image name
-  displayName: Image Name
-  name: IMAGE_NAME
-  value: kafka-connect
-- description: Image tag
-  displayName: Image tag
-  name: IMAGE_TAG
-  value: latest
 - description: Number of seconds after the container has started before healthcheck probes are initiated.
   displayName: Kafka Connect healthcheck initial delay
   name: HEALTHCHECK_DELAY
@@ -91,15 +79,20 @@ objects:
       strimzi.io/type: kafka-connect
   data:
     nodes: "${INSTANCES}"
-    image: "${IMAGE_REPO_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
     healthcheck-delay: "${HEALTHCHECK_DELAY}"
     healthcheck-timeout: "${HEALTHCHECK_TIMEOUT}"
-    KAFKA_CONNECT_BOOTSTRAP_SERVERS: "${KAFKA_CONNECT_BOOTSTRAP_SERVERS}"
-    KAFKA_CONNECT_GROUP_ID: "${KAFKA_CONNECT_GROUP_ID}"
-    KAFKA_CONNECT_KEY_CONVERTER: "${KAFKA_CONNECT_KEY_CONVERTER}"
-    KAFKA_CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "${KAFKA_CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE}"
-    KAFKA_CONNECT_VALUE_CONVERTER: "${KAFKA_CONNECT_VALUE_CONVERTER}"
-    KAFKA_CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "${KAFKA_CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE}"
-    KAFKA_CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "${KAFKA_CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR}"
-    KAFKA_CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "${KAFKA_CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR}"
-    KAFKA_CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "${KAFKA_CONNECT_STATUS_STORAGE_REPLICATION_FACTOR}"
+    connect-config: |-
+      {
+        "bootstrap.servers": "${KAFKA_CONNECT_BOOTSTRAP_SERVERS}",
+        "group.id": "${KAFKA_CONNECT_GROUP_ID}",
+        "offset.storage.topic": "${KAFKA_CONNECT_GROUP_ID}-offsets",
+        "config.storage.topic": "${KAFKA_CONNECT_GROUP_ID}-configs",
+        "status.storage.topic": "${KAFKA_CONNECT_GROUP_ID}-status",
+        "key.converter": "${KAFKA_CONNECT_KEY_CONVERTER}",
+        "value.converter": "${KAFKA_CONNECT_VALUE_CONVERTER}",
+        "key.converter.schemas.enable": "${KAFKA_CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE}",
+        "value.converter.schemas.enable": "${KAFKA_CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE}",
+        "config.storage.replication.factor": "${KAFKA_CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR}",
+        "offset.storage.replication.factor": "${KAFKA_CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR}",
+        "status.storage.replication.factor": "${KAFKA_CONNECT_STATUS_STORAGE_REPLICATION_FACTOR}"
+      }
