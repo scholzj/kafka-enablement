@@ -34,7 +34,7 @@ public class HashTagCounter {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> hashTags = builder
                 .stream("twitter-feed", Consumed.with(Serdes.String(), jsonSerde))
-                .flatMapValues(HashTagCounter::getHashTags)
+                .flatMapValues(HashTagCounter::getHashTags) // 1->N transformation
                 .mapValues(value -> value.toLowerCase(Locale.getDefault()));
         KTable<String, Long> counts = hashTags.groupBy((key, value) -> value).count();
 

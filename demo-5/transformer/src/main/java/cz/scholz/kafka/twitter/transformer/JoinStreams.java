@@ -31,7 +31,7 @@ public class JoinStreams {
         KTable<String, String> names = builder.table("users");
 
         KStream<String, String> output = tweets.join(names,
-                (leftValue, rightValue) -> rightValue + " says:" + leftValue);
+                (leftValue, rightValue) -> rightValue + " says: " + leftValue);
 
         output.to("twitter-joined");
         KafkaStreams streams = new KafkaStreams(builder.build(), props);

@@ -33,7 +33,7 @@ public class Transformer {
 
         StreamsBuilder builder = new StreamsBuilder();
         builder.stream("twitter-feed", Consumed.with(Serdes.String(), jsonSerde))
-                .map((key, value) -> KeyValue.pair(value.get("user").get("screen_name").asText(), value.get("text").asText()))
+                .map((key, value) -> KeyValue.pair(value.get("user").get("screen_name").asText(), value.get("text").asText())) // 1->1 transformation
                 .mapValues(value -> value.replaceAll(System.getProperty("line.separator"), ""))
                 .to("tweets");
 

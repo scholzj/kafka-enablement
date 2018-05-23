@@ -11,10 +11,17 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 ## Create topics
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic tweets --partitions 10 --replication-factor 1 --config retention.bytes=128000000 --config segment.bytes 16000000
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic users --partitions 10 --replication-factor 1 --config retention.bytes=128000000 --config segment.bytes 16000000
+../../demo-5/create-topics.sh
+```
+
+or
+
+```
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic tweets --partitions 10 --replication-factor 1 --config retention.bytes=128000000 --config segment.bytes=16000000
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic users --partitions 10 --replication-factor 1 --config retention.bytes=128000000 --config segment.bytes=16000000
 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-feed --partitions 1 --replication-factor 1
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-counter --partitions 3 --replication-factor 1
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-joined --partitions 1 --replication-factor 1
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-counter --partitions 1 --replication-factor 1
 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-windowed-counter --partitions 3 --replication-factor 1
 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-hashtag-counter --partitions 3 --replication-factor 1
 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-windowed-hashtag-counter --partitions 3 --replication-factor 1
@@ -25,12 +32,13 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-windowed
 * Deploy it through Kafka Connect REST API
 
 ```
-curl -X POST -H "Content-Type: application/json" --data @connector-with-credentials.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @../../demo-5/connector-with-credentials.json http://localhost:8083/connectors
 ```
 
 * Check status
 
 ```
+curl http://localhost:8083/connectors/twitter-feed | jq
 curl http://localhost:8083/connectors/twitter-feed/status | jq
 curl http://localhost:8083/connectors/twitter-feed/tasks/0/status | jq
 ```
@@ -41,6 +49,8 @@ curl http://localhost:8083/connectors/twitter-feed/tasks/0/status | jq
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-feed --from-beginning
 ```
 
+* Show the example tweet to details the layout (tweet-sample.json)
+
 ## Kafka Streams examples
 
 * Run the transformer demo
@@ -48,6 +58,20 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-
 
 ```
 kafkacat -C -t tweets -b localhost:9092 -f "%k: %s\n\n"
+```
+
+* Run the Join example
+* Show the joined tweets
+
+```
+kafkacat -C -t twitter-joined -b localhost:9092 -f "%s\n\n"
+```
+
+* Run the tweet counter example
+* Check the results
+ 
+```
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --topic twitter-counter --from-beginning
 ```
 
 * Run the hashtag counter example
