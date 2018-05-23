@@ -44,7 +44,7 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-2 -
 * Show again the topic description with the leaders which changed and new ISR
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-2 --partitions 3 --replication-factor 3
+bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-2
 ```
 
 ## Consume messages
@@ -57,4 +57,4 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-2 -
 
 ## Start the broker again
 
-* Leader ship didn't changed, but all replicas are again ISR
+* Leadership didn't changed, but all replicas are again ISR
