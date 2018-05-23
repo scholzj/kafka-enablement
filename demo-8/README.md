@@ -113,7 +113,7 @@ oc scale deployment kafka-consumer --replicas=3
 * Scale the consumer to 4 instances
 
 ```
-oc scale deployment kafka-consumer --replicas=3
+oc scale deployment kafka-consumer --replicas=4
 ```
 
 * Check that one of them is idle
