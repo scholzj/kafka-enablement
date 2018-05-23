@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-cluster
+  labels:
+    strimzi.io/kind: cluster
+    strimzi.io/type: kafka
+data:
+  zookeeper-nodes: "3"
+  zookeeper-healthcheck-delay: "15"
+  zookeeper-healthcheck-timeout: "5"
+  kafka-nodes: "1"
+  kafka-healthcheck-delay: "15"
+  kafka-healthcheck-timeout: "5"
+  KAFKA_DEFAULT_REPLICATION_FACTOR: "1"
+  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+  KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+  kafka-storage: |-
+    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
+  zookeeper-storage: |-
+    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
+  topic-controller-config: |-
+    { }
