@@ -19,9 +19,9 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 * Show Kafka configuration files
 * Show `broker.id`
 * Show listeners, advertised listeners, protocols
-* Show Zookeeeer config
+* Show Zookeeper config
 * Show journal files
-* Show other mgmgt tools for reassigning topics etc.
+* Show other mgmt tools for reassigning topics etc.
 
 ## Show what Kafka does in Zookeeper
 
