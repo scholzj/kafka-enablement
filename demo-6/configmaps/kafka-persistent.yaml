@@ -9,13 +9,15 @@ data:
   kafka-nodes: "3"
   kafka-healthcheck-delay: "15"
   kafka-healthcheck-timeout: "5"
-  kafka-config: |-
-    {
-      "offsets.topic.replication.factor": 3,
-      "transaction.state.log.replication.factor": 3,
-      "transaction.state.log.min.isr": 2
-    }
+  zookeeper-nodes: "3"
+  zookeeper-healthcheck-delay: "15"
+  zookeeper-healthcheck-timeout: "5"
+  KAFKA_DEFAULT_REPLICATION_FACTOR: "3"
+  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "3"
+  KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "3"
   kafka-storage: |-
+    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
+  zookeeper-storage: |-
     { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
   kafka-metrics-config: |-
     {
@@ -35,14 +37,9 @@ data:
           }
       ]
     }
-  zookeeper-nodes: "3"
-  zookeeper-healthcheck-delay: "15"
-  zookeeper-healthcheck-timeout: "5"
-  zookeeper-storage: |-
-    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
   zookeeper-metrics-config: |-
     {
       "lowercaseOutputName": true
     }
-  topic-operator-config: |-
+  topic-controller-config: |-
     { }
