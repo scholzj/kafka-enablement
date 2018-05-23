@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-producer
+  name: kafka-producer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      containers:
+      - name: kafka-producer
+        image: scholzj/kafka-producer:latest
+        env:
+          - name: BOOTSTRAP_SERVERS
+            value: my-cluster-kafka:9092
+          - name: TOPIC
+            value: my-topic
+          - name: TIMER
+            value: "10000"
+          - name: NUMBER_OF_KEYS
+            value: "3"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-consumer
+  name: kafka-consumer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: scholzj/kafka-consumer:latest
+        env:
+          - name: BOOTSTRAP_SERVERS
+            value: my-cluster-kafka:9092
+          - name: TOPIC
+            value: my-topic
+          - name: GROUP_ID
+            value: my-kafka-consumer

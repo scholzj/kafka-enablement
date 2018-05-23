@@ -1,12 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
-  name: strimzi-cluster-operator-binding
+  name: strimzi-cluster-controller-binding
   labels:
     app: strimzi
 subjects:
   - kind: ServiceAccount
-    name: strimzi-cluster-operator
+    name: strimzi-cluster-controller
 roleRef:
   kind: ClusterRole
   name: edit
