@@ -14,6 +14,15 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 * Explain the `myid` file which needs to be created
 * Show the ensemble configuration
 
+## Kafka configuration
+
+* Show Kafka configuration files
+* Show `broker.id`
+* Show listeners, advertised listeners, protocols
+* Show Zookeeeer config
+* Show journal files
+* Show other mgmgt tools for reassigning topics etc.
+
 ## Show what Kafka does in Zookeeper
 
 * Explain that ZK is integrated into the Kafka distro
@@ -21,6 +30,17 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 
 ```
 bin/zookeeper-shell.sh localhost:2181
+```
+
+* Show some paths in ZK
+
+```
+ls /
+get /controller
+ls /brokers
+ls /brokers/ids
+get /brokers/ids/0
+ls /brokers/topics
 ```
 
 * Show netcat dump with connected brokers
@@ -34,15 +54,6 @@ echo dump | nc localhost 2181
 ```
 echo dump | nc localhost 2181
 ```
-
-## Kafka configuration
-
-* Show Kafka configuration files
-* Show `broker.id`
-* Show listeners, advertised listeners, protocols
-* Show Zookeeeer config
-* Show journal files
-* Show other mgmgt tools for reassigning topics etc.
 
 ## Kafka Connect
 
