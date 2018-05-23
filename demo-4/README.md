@@ -16,13 +16,13 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-3 --partiti
 
 ## Setup consumers
 
-* Open 3 consumers using the same group `group-x`
+* Open 3 consumers using the same group `group-1`
 
 ```
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning --property print.key=true --property key.separator=":" --group group-1
 ```
 
-* Open consumer using a different group
+* Open consumer using a different group `group-2`
 
 ```
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning  --property print.key=true --property key.separator=":" --group group-2
