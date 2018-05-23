@@ -20,7 +20,7 @@ spec:
           - name: TOPIC
             value: my-topic
           - name: TIMER
-            value: "10000"
+            value: "1000"
           - name: NUMBER_OF_KEYS
             value: "3"
 ---
