@@ -16,8 +16,8 @@ data:
   KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
   KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
   kafka-storage: |-
-    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
+    { "type": "ephemeral" }
   zookeeper-storage: |-
-    { "type": "persistent-claim", "size": "1Gi", "delete-claim": false }
+    { "type": "ephemeral" }
   topic-controller-config: |-
     { }

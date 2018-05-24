@@ -1,4 +1,4 @@
-# Strimzi Cluster Controller
+# Strimzi Cluster Operator
 
 This demo should be executed from the `./` directory.
 
@@ -15,7 +15,7 @@ or
 minishift start
 ```
 
-## Deploy Cluster Controller
+## Deploy Cluster Operator
 
 * Show the deployment config and RBAC roles / bindings
 * Install OpenShift templates

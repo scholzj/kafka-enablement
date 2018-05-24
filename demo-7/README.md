@@ -1,12 +1,12 @@
-# Topic Controller
+# Topic Operator
 
 This demo should be executed from the `./` directory.
 
-## Show how Topic Controller deployed with cluster
+## Show how Topic Operator deployed with cluster
 
 * In console
 
-## Show TC in action
+## Show Topic Operator in action
 
 * Create topic through Kafka
 
