@@ -13,13 +13,13 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 The topic should have 3 partitions and 3 replicas
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-2 --partitions 3 --replication-factor 3
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-3 --partitions 3 --replication-factor 3
 ```
 
 ## Check the created topic
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-2
+bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-3
 ```
 
 Notice the distribution of leaders and the ISR replicas. Explain also the RackID feature.
@@ -27,7 +27,7 @@ Notice the distribution of leaders and the ISR replicas. Explain also the RackID
 ## Send some messages
 
 ```
-bin/kafka-verifiable-producer.sh --broker-list localhost:9092 --topic demo-2 --max-messages 20
+bin/kafka-verifiable-producer.sh --broker-list localhost:9092 --topic demo-3 --max-messages 20
 ```
 
 ## Consume messages
@@ -35,7 +35,7 @@ bin/kafka-verifiable-producer.sh --broker-list localhost:9092 --topic demo-2 --m
 * Show that the messages are still in the topic!
 
 ```
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-2 --from-beginning
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning
 ```
 
 ## Broker crash
@@ -44,7 +44,7 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-2 -
 * Show again the topic description with the leaders which changed and new ISR
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-2
+bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-3
 ```
 
 ## Consume messages
@@ -52,7 +52,7 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic demo-2
 * Show that the messages are still in the topic!
 
 ```
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-2 --from-beginning
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning
 ```
 
 ## Start the broker again

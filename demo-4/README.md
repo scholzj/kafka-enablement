@@ -11,7 +11,7 @@ export KAFKA_OPTS="-Djava.security.auth.login.config=../configs/kafka/jaas.confi
 ## Create topic
 
 ```
-bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-3 --partitions 3 --replication-factor 1
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-4 --partitions 3 --replication-factor 1
 ```
 
 ## Setup consumers
@@ -19,13 +19,13 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic demo-3 --partiti
 * Open 3 consumers using the same group `group-1`
 
 ```
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning --property print.key=true --property key.separator=":" --group group-1
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-4 --from-beginning --property print.key=true --property key.separator=":" --group group-1
 ```
 
 * Open consumer using a different group `group-2`
 
 ```
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 --from-beginning  --property print.key=true --property key.separator=":" --group group-2
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-4 --from-beginning  --property print.key=true --property key.separator=":" --group group-2
 ```
 
 ## Send messages
@@ -33,7 +33,7 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-3 -
 * Send some messages with keys
 
 ```
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic demo-3 --property "parse.key=true" --property "key.separator=:"
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic demo-4 --property "parse.key=true" --property "key.separator=:"
 ```
 
 ## Rebalancing consuemr group
