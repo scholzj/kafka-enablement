@@ -32,7 +32,7 @@ oc apply -f https://raw.githubusercontent.com/scholzj/kafka-enablement/master/de
 * Check that the controller is started and running
 
 ```
-kubectl logs -l name=strimzi-cluster-controller
+oc logs $(oc get pod -l name=strimzi-cluster-controller -o=jsonpath='{.items[0].metadata.name}')
 ```
 
 ## Deploy Kafka cluster
@@ -92,7 +92,7 @@ oc apply -f https://raw.githubusercontent.com/scholzj/kafka-enablement/master/de
 * Check in Kafka that the topic was created
 
 ```
-oc apply -f https://raw.githubusercontent.com/scholzj/kafka-enablement/master/demo-8/kafka-topic.yaml
+oc exec my-cluster-kafka-0 -i -t -- bin/kafka-topics.sh --zookeeper my-cluster-zookeeper:2181 --describe --topic my-topic
 ```
 
 ## Deploy application
