@@ -32,7 +32,7 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic twitter-windowed
 * Deploy it through Kafka Connect REST API
 
 ```
-curl -X POST -H "Content-Type: application/json" --data @../../demo-5/connector-with-credentials.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @../../demo-5/connector.json http://localhost:8083/connectors
 ```
 
 * Check status
