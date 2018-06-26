@@ -68,7 +68,7 @@ oc edit cm my-cluster
 oc get pods -w
 ```
 
-* Edit the ConfigMap and set default number of replicas to 3. To do so, change the fields `KAFKA_DEFAULT_REPLICATION_FACTOR`,`KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR`and `KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR` to `3`. That can be done through the web console or using:
+* Edit the ConfigMap and set default number of replicas to 3. To do so, change the field `KAFKA_DEFAULT_REPLICATION_FACTOR` to `3`. That can be done through the web console or using:
 
 ```
 oc edit cm my-cluster
@@ -95,7 +95,7 @@ oc apply -f https://raw.githubusercontent.com/scholzj/kafka-enablement/master/de
 oc exec my-cluster-kafka-0 -i -t -- bin/kafka-topics.sh --zookeeper my-cluster-zookeeper:2181 --describe --topic my-topic
 ```
 
-## Deploy application
+## Deploy receiver and producer
 
 * Deploy producer and consumer (Source code can be found here: [https://github.com/scholzj/kafka-test-apps](https://github.com/scholzj/kafka-test-apps))
 

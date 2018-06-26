@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: address-book
+  labels:
+    strimzi.io/kind: topic
+    strimzi.io/cluster: my-cluster
+data:
+  name: address-book
+  partitions: "3"
+  replicas: "3"
+  config: |-
+    {
+      "cleanup.policy": "compact",
+      "min.cleanable.dirty.ratio": "0.0",
+      "segment.bytes": "1048576"
+    }
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-address-book
+  name: kafka-address-book
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafka-address-book
+    spec:
+      containers:
+      - name: kafka-address-book
+        image: scholzj/kafka-address-book:latest
+        env:
+          - name: KAFKA_BOOTSTRAP_SERVER
+            value: my-cluster-kafka:9092
+          - name: KAFKA_TOPIC
+            value: address-book
+          - name: KAFKA_GROUP_ID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kafka-address-book
+spec:
+  selector:
+    app: kafka-address-book
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: kafka-address-book
+spec:
+  to:
+    kind: Service
+    name: kafka-address-book

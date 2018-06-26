@@ -29,10 +29,12 @@ oc get configmap created-in-kafka -o yaml
 
 ## Application
 
-* Deploy the example app
+* Deploy the Address Book application (Source code: [https://github.com/scholzj/kafka-address-book](https://github.com/scholzj/kafka-address-book))
 
 ```
-oc apply -f demo-7/example-app.yaml
+oc apply -f demo-7/address-book.yaml
 ```
 
 * Show the app running and communicating
+* Scale the app to 3 instances
+* Explain how it works
