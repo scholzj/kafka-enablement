@@ -1,4 +1,4 @@
-# Topic Operator
+# Demo 7: Topic Operator
 
 This demo should be executed from the `./` directory.
 
