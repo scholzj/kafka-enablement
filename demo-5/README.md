@@ -74,6 +74,13 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --topic twitter-counter --from-beginning
 ```
 
+* Run the windowed tweet counter example
+* Check the results
+ 
+```
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --topic twitter-windowed-counter --from-beginning
+```
+
 * Run the hashtag counter example
 * Check the results
  
