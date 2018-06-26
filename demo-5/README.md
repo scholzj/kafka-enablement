@@ -57,14 +57,14 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-
 * Show results
 
 ```
-kafkacat -C -t tweets -b localhost:9092 -f "%k: %s\n\n"
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic tweets  --property print.key=true --property key.separator=": "
 ```
 
 * Run the Join example
 * Show the joined tweets
 
 ```
-kafkacat -C -t twitter-joined -b localhost:9092 -f "%s\n\n"
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-joined
 ```
 
 * Run the tweet counter example
