@@ -36,7 +36,7 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-4 -
 bin/kafka-console-producer.sh --broker-list localhost:9092 --topic demo-4 --property "parse.key=true" --property "key.separator=:"
 ```
 
-## Rebalancing consuemr group
+## Rebalancing consumer group
 
 * Kill one of the consumers started before
 * Send some messages with the same key as was used before for this consumer
