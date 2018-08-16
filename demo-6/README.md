@@ -30,7 +30,7 @@ oc apply -f demo-6/strimzi/templates/ -n openshift
 oc apply -f demo-6/strimzi/install/
 ```
 
-## Show CC running in OpenShift console
+## Show CO running in OpenShift console
 
 * Just do it
 
